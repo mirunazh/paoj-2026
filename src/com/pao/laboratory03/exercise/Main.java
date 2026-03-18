@@ -1,6 +1,9 @@
 package com.pao.laboratory03.exercise;
 
 import java.util.Scanner;
+import java.util.Map;
+import com.pao.laboratory03.model.Subject;
+import com.pao.laboratory03.service.StudentService;
 
 /**
  * Exercițiul 4 (Integrator) — Sistem de gestiune studenți + note
@@ -68,6 +71,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        StudentService service = StudentService.getInstance();
 
         // TODO: obține instanța StudentService (Singleton)
 
@@ -111,14 +115,24 @@ public class Main {
 
                     case "3":
                         // TODO: apelează service.printAllStudents()
+                        service.printAllStudents();
                         break;
 
                     case "4":
                         // TODO: apelează service.printTopStudents()
+                        service.printTopStudents();
                         break;
 
                     case "5":
                         // TODO: apelează service.getAveragePerSubject() și afișează
+                        Map<Subject, Double> averages = service.getAveragePerSubject();
+                        if (averages.isEmpty()) {
+                            System.out.println("Nu exista medii pe materii.");
+                        } else {
+                            for (Map.Entry<Subject, Double> entry : averages.entrySet()) {
+                                System.out.printf("%s -> %.2f%n", entry.getKey(), entry.getValue());
+                            }
+                        }
                         break;
 
                     case "0":
